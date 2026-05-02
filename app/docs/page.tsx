@@ -34,7 +34,7 @@ export default function DocsPage() {
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-2">Introduction</h1>
           <p className="text-lg text-zinc-400 leading-relaxed font-medium">
-            AnimX Pro is a copy-and-paste platform. You don't need to install any heavy npm packages. 
+            AnimX Pro is a copy-and-paste platform. You don&apos;t need to install any heavy npm packages. 
             Just browse the catalog, tweak the properties, and paste the resulting HTML, CSS, and JavaScript directly into your app.
           </p>
         </div>
@@ -96,8 +96,8 @@ export default function DocsPage() {
                    <pre className="p-6 text-sm font-mono leading-relaxed overflow-x-auto custom-scrollbar">
                      <code className="text-zinc-300">
 <span className="text-zinc-500">&lt;!-- No setup required, just drop it in --&gt;</span>
-<span className="text-blue-400">&lt;div</span> <span className="text-indigo-300">class</span>=<span className="text-emerald-300">"animx-component-wrapper"</span><span className="text-blue-400">&gt;</span>
-  <span className="text-blue-400">&lt;div</span> <span className="text-indigo-300">class</span>=<span className="text-emerald-300">"animx-spotlight-card"</span><span className="text-blue-400">&gt;</span>
+<span className="text-blue-400">&lt;div</span> <span className="text-indigo-300">class</span>=<span className="text-emerald-300">&quot;animx-component-wrapper&quot;</span><span className="text-blue-400">&gt;</span>
+  <span className="text-blue-400">&lt;div</span> <span className="text-indigo-300">class</span>=<span className="text-emerald-300">&quot;animx-spotlight-card&quot;</span><span className="text-blue-400">&gt;</span>
     <span className="text-zinc-500">&lt;!-- Your content here --&gt;</span>
   <span className="text-blue-400">&lt;/div&gt;</span>
 <span className="text-blue-400">&lt;/div&gt;</span>

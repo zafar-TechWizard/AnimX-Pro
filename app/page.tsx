@@ -44,7 +44,7 @@ export default function Home() {
               <Cpu className="w-5 h-5 text-indigo-400" />
             </div>
             <h3 className="text-lg font-semibold text-white">Framework Agnostic</h3>
-            <p className="text-sm text-zinc-400 leading-relaxed">Runs anywhere. Vue, Svelte, React, Angular or just standard HTML strings. We don't discriminate.</p>
+            <p className="text-sm text-zinc-400 leading-relaxed">Runs anywhere. Vue, Svelte, React, Angular or just standard HTML strings. We don&apos;t discriminate.</p>
           </div>
           <div className="flex flex-col gap-3 p-6 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm">
             <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-2">
@@ -68,7 +68,7 @@ export default function Home() {
           <div className="flex flex-col gap-3 max-w-2xl">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">Interactive Playgrounds</h2>
             <p className="text-zinc-400 text-lg">
-              Don't guess what the code does. Tweak the physics, lighting, and colors before you copy a single line of code.
+              Don&apos;t guess what the code does. Tweak the physics, lighting, and colors before you copy a single line of code.
             </p>
           </div>
           <SpotlightPlayground />
