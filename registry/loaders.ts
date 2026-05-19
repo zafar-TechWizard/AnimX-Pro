@@ -61,12 +61,63 @@ export const loaders: ComponentItem[] = [
       js: ``
     }
   },
-  { id: 'skeleton-wave', name: 'Skeleton Wave', description: 'Sweeping gradient shimmer.', category: 'Loaders', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
+  {
+    id: 'skeleton-wave',
+    name: 'Skeleton Wave',
+    description: 'Sweeping gradient shimmer.',
+    category: 'Loaders',
+    code: {
+      html: `<div class="skeleton"></div>`,
+      css: `.skeleton {
+  width: 200px;
+  height: 20px;
+  border-radius: 4px;
+  background: #27272a;
+  position: relative;
+  overflow: hidden;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  animation: wave 1.5s infinite;
+}
+@keyframes wave {
+  100% { left: 100%; }
+}`,
+      js: ``
+    }
+  },
   { id: 'liquid-spinner', name: 'Liquid Spinner', description: 'Merging and splitting drops.', category: 'Loaders', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'wifi-search', name: 'Radar Sweep', description: 'Sonar style sweeping arc.', category: 'Loaders', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'cube-flip', name: 'Flipping Cubes', description: 'Grid of cubes folding over.', category: 'Loaders', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'morphing-shape', name: 'Morphing Shape', description: 'Circle transitions to square/triangle.', category: 'Loaders', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
-  { id: 'progress-ring', name: 'SVG Progress Ring', description: 'Smooth stroke-dashoffset transition.', category: 'Loaders', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
+  {
+    id: 'progress-ring',
+    name: 'SVG Progress Ring',
+    description: 'Smooth stroke-dashoffset transition.',
+    category: 'Loaders',
+    code: {
+      html: `<svg class="progress-ring" width="120" height="120">
+  <circle class="progress-ring__circle" stroke="white" stroke-width="4" fill="transparent" r="52" cx="60" cy="60"/>
+</svg>`,
+      css: `.progress-ring {
+  transform: rotate(-90deg);
+}
+.progress-ring__circle {
+  stroke-dasharray: 326.72;
+  stroke-dashoffset: 326.72;
+  stroke-linecap: round;
+  animation: load-ring 2s ease-in-out infinite alternate;
+}
+@keyframes load-ring {
+  from { stroke-dashoffset: 326.72; }
+  to { stroke-dashoffset: 0; }
+}`,
+      js: ``
+    }
+  },
   { id: 'typewriter-loader', name: 'Typewriter', description: 'Typing "Loading..." with cursor.', category: 'Loaders', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'infinity-loop', name: 'Infinity Trace', description: 'Path drawing in figure 8.', category: 'Loaders', code: { html: '<!-- implementation soon -->', css: '', js: '' } }
 ];

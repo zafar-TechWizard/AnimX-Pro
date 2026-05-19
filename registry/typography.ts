@@ -79,11 +79,65 @@ typeWriter();`
     }
   },
   { id: 'scramble-text', name: 'Data Scramble', description: 'Decoder ring gibberish to text effect.', category: 'Typography', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
-  { id: 'stagger-fade', name: 'Staggered Fade', description: 'Letters fade in sequence.', category: 'Typography', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
+  {
+    id: 'stagger-fade',
+    name: 'Staggered Fade',
+    description: 'Letters fade in sequence.',
+    category: 'Typography',
+    code: {
+      html: `<div class="stagger-container">
+  <span>R</span><span>e</span><span>v</span><span>e</span><span>a</span><span>l</span>
+</div>`,
+      css: `.stagger-container { font-size: 3rem; font-weight: bold; }
+.stagger-container span {
+  opacity: 0;
+  animation: fade-in 0.5s forwards;
+}
+.stagger-container span:nth-child(1) { animation-delay: 0.1s; }
+.stagger-container span:nth-child(2) { animation-delay: 0.2s; }
+.stagger-container span:nth-child(3) { animation-delay: 0.3s; }
+.stagger-container span:nth-child(4) { animation-delay: 0.4s; }
+.stagger-container span:nth-child(5) { animation-delay: 0.5s; }
+.stagger-container span:nth-child(6) { animation-delay: 0.6s; }
+@keyframes fade-in {
+  to { opacity: 1; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+}`,
+      js: ``
+    }
+  },
   { id: 'blur-in', name: 'Blur Focus', description: 'Text comes out of focus into clarity.', category: 'Typography', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'highlight-marker', name: 'Marker Highlight', description: 'Yellow highlight draws behind text.', category: 'Typography', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'split-text', name: 'Vertical Split', description: 'Text halves slide together.', category: 'Typography', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'isometric-text', name: 'Isometric 3D', description: 'Shadow depth 3D text.', category: 'Typography', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
-  { id: 'neon-glow', name: 'Neon Flicker', description: 'Flickering neon sign text.', category: 'Typography', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
+  {
+    id: 'neon-glow',
+    name: 'Neon Flicker',
+    description: 'Flickering neon sign text.',
+    category: 'Typography',
+    code: {
+      html: `<h1 class="neon-text">OPEN</h1>`,
+      css: `.neon-text {
+  font-family: 'Arial', sans-serif;
+  font-size: 5rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow:
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px #ff00de,
+    0 0 82px #ff00de,
+    0 0 92px #ff00de,
+    0 0 102px #ff00de,
+    0 0 151px #ff00de;
+  animation: flicker 1.5s infinite alternate;
+}
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #ff00de, 0 0 82px #ff00de, 0 0 92px #ff00de; }
+  20%, 24%, 55% { text-shadow: none; color: #555; }
+}`,
+      js: ``
+    }
+  },
   { id: 'wave-text', name: 'Jumping Wave', description: 'Individual letters jump in a wave.', category: 'Typography', code: { html: '<!-- implementation soon -->', css: '', js: '' } }
 ];

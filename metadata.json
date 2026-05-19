@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "description": "",
+  "name": "AnimX Pro",
+  "description": "A premium, framework-agnostic copy-and-paste UI component library focusing on modern micro-interactions and animations. No dependencies needed.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }

@@ -44,8 +44,75 @@ document.addEventListener('mouseup', () => {
   { id: 'magnetic-cursor', name: 'Magnetic Lock', description: 'Cursor snaps to nearest link.', category: 'Cursors', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'emoji-trail', name: 'Emoji Trail', description: 'Leaves fading emojis behind.', category: 'Cursors', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'paint-drip', name: 'Paint Drip', description: 'Cursor acts as a leaking brush.', category: 'Cursors', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
-  { id: 'spotlight-cursor', name: 'Spotlight Screen', description: 'Dims entire screen except cursor radius.', category: 'Cursors', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
-  { id: 'crosshair', name: 'Sniper Crosshair', description: 'Tech style crosshair.', category: 'Cursors', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
+  {
+    id: 'spotlight-cursor',
+    name: 'Spotlight Screen',
+    description: 'Dims entire screen except cursor radius.',
+    category: 'Cursors',
+    code: {
+      html: `<div class="spotlight-overlay" id="spotlight"></div>
+<p style="color: white; margin: 100px; position: relative; z-index: -1;">Move cursor to see the hidden text perfectly illuminated.</p>`,
+      css: `.spotlight-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle 100px at var(--x, 50%) var(--y, 50%), transparent 0%, rgba(0,0,0,0.95) 150px);
+  z-index: 9998;
+}`,
+      js: `const spotlight = document.getElementById('spotlight');
+document.addEventListener('mousemove', (e) => {
+  spotlight.style.setProperty('--x', e.clientX + 'px');
+  spotlight.style.setProperty('--y', e.clientY + 'px');
+});`
+    }
+  },
+  {
+    id: 'crosshair',
+    name: 'Sniper Crosshair',
+    description: 'Tech style crosshair.',
+    category: 'Cursors',
+    code: {
+      html: `<div class="crosshair-container" id="crosshair">
+  <div class="line horizontal"></div>
+  <div class="line vertical"></div>
+  <div class="center-dot"></div>
+</div>`,
+      css: `body { cursor: none; }
+.crosshair-container {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: exclusion;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s linear;
+}
+.crosshair-container .line {
+  position: absolute;
+  background: #fff;
+}
+.crosshair-container .horizontal {
+  width: 40px; height: 1px;
+  top: 50%; left: -20px;
+}
+.crosshair-container .vertical {
+  width: 1px; height: 40px;
+  left: 50%; top: -20px;
+}
+.crosshair-container .center-dot {
+  position: absolute;
+  width: 4px; height: 4px;
+  background: #f00;
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}`,
+      js: `const crosshair = document.getElementById('crosshair');
+document.addEventListener('mousemove', (e) => {
+  crosshair.style.left = e.clientX + 'px';
+  crosshair.style.top = e.clientY + 'px';
+});`
+    }
+  },
   { id: 'gooey-cursor', name: 'Gooey Tracker', description: 'SVG filter gooey effect.', category: 'Cursors', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'blend-mode-cursor', name: 'Color Burn', description: 'Uses mix-blend-mode for burn effect.', category: 'Cursors', code: { html: '<!-- implementation soon -->', css: '', js: '' } }
 ];

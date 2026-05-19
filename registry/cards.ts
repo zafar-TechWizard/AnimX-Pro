@@ -131,11 +131,122 @@ el.addEventListener('mouseenter', () => {
 });`
     }
   },
+  {
+    id: 'neon-border-card',
+    name: 'Neon Border Card',
+    description: 'Animated glowing border.',
+    category: 'Cards',
+    code: {
+      html: `<div class="neon-card">
+  <div class="neon-card-inner">
+    <h3>Cyberpunk API</h3>
+    <p>Secure endpoint active.</p>
+  </div>
+</div>`,
+      css: `@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.neon-card {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  border-radius: 12px;
+  background: conic-gradient(from var(--angle), transparent 70%, #00ffcc, #ff00ff);
+  animation: spin 4s linear infinite;
+  padding: 2px; /* Border thickness */
+}
+.neon-card::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  background: conic-gradient(from var(--angle), transparent 70%, #00ffcc, #ff00ff);
+  filter: blur(10px);
+  animation: spin 4s linear infinite;
+  z-index: -1;
+  opacity: 0.5;
+}
+.neon-card-inner {
+  background: #09090b;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+@keyframes spin {
+  from { --angle: 0deg; }
+  to { --angle: 360deg; }
+}`,
+      js: ``
+    }
+  },
+  {
+    id: 'flip-card',
+    name: '3D Flip Card',
+    description: 'Flips fully to reveal back content.',
+    category: 'Cards',
+    code: {
+      html: `<div class="flip-card">
+  <div class="flip-card-inner">
+    <div class="flip-card-front">
+      Hover To Flip
+    </div>
+    <div class="flip-card-back">
+      Secret Message
+    </div>
+  </div>
+</div>`,
+      css: `.flip-card {
+  background-color: transparent;
+  width: 300px;
+  height: 200px;
+  perspective: 1000px;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+.flip-card-front {
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid #333;
+}
+.flip-card-back {
+  background-color: #4f46e5;
+  color: white;
+  transform: rotateY(180deg);
+}`,
+      js: ``
+    }
+  },
   { id: 'swipe-card', name: 'Tinder Swipe', description: 'Mobile-first swipeable gesture cards.', category: 'Cards', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'holographic-card', name: 'Holographic Card', description: 'Iridescent foil effect on hover.', category: 'Cards', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
-  { id: 'neon-border-card', name: 'Neon Border Card', description: 'Animated glowing border.', category: 'Cards', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'expandable-card', name: 'Expandable Card', description: 'Smooth height expansion layout.', category: 'Cards', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'bento-grid', name: 'Bento Grid Focus', description: 'Grid layout that expands on hover.', category: 'Cards', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
-  { id: 'flip-card', name: '3D Flip Card', description: 'Flips fully to reveal back content.', category: 'Cards', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
   { id: 'glare-effect', name: 'Glare Effect', description: 'Moving reflection glare on surface.', category: 'Cards', code: { html: '<!-- implementation soon -->', css: '', js: '' } }
 ];
