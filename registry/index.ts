@@ -4,8 +4,11 @@ import { cursors } from './cursors';
 import { backgrounds } from './backgrounds';
 import { loaders } from './loaders';
 import { typography } from './typography';
+import { navigations } from './navigations';
+import { inputs } from './inputs';
+import { dataViz } from './data-viz';
 
-export type Category = 'Cards' | 'Buttons' | 'Cursors' | 'Backgrounds' | 'Loaders' | 'Typography';
+export type Category = 'Cards' | 'Buttons' | 'Cursors' | 'Backgrounds' | 'Loaders' | 'Typography' | 'Navigations' | 'Inputs' | 'Data Visualization';
 
 export interface ComponentItem {
   id: string;
@@ -27,6 +30,9 @@ export const COMPONENTS: ComponentItem[] = [
   ...backgrounds,
   ...loaders,
   ...typography,
+  ...navigations,
+  ...inputs,
+  ...dataViz,
 ];
 
 export function getComponent(id: string) {

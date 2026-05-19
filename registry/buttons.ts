@@ -4,7 +4,7 @@ export const buttons: ComponentItem[] = [
   {
     id: 'magnetic-button',
     name: 'Magnetic Button',
-    description: 'Button that snaps to the cursor within a radius.',
+    description: 'Attracts cursor precisely with smooth spring-like physics.',
     category: 'Buttons',
     new: true,
     code: {
@@ -20,32 +20,60 @@ export const buttons: ComponentItem[] = [
   font-weight: 600;
   cursor: pointer;
   position: relative;
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.magnetic-btn:hover {
-  transform: scale(1.1);
-  transition: transform 0.1s linear;
+  /* We remove CSS transform transitions and rely on JS for smooth lerping */
 }
 .magnetic-text {
   display: inline-block;
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
 }`,
       js: `const btn = document.getElementById('mag-btn');
 const text = btn.querySelector('.magnetic-text');
 
+let bounds;
+let mouseX = 0, mouseY = 0;
+let btnX = 0, btnY = 0;
+let textX = 0, textY = 0;
+let isHovered = false;
+
+// Simple linear interpolation for spring-like feel
+const lerp = (start, end, factor) => start + (end - start) * factor;
+
+btn.addEventListener('mouseenter', () => {
+  bounds = btn.getBoundingClientRect();
+  isHovered = true;
+});
+
 btn.addEventListener('mousemove', (e) => {
-  const rect = btn.getBoundingClientRect();
-  const x = e.clientX - rect.left - rect.width / 2;
-  const y = e.clientY - rect.top - rect.height / 2;
-  
-  btn.style.transform = \`translate(\${x * 0.3}px, \${y * 0.3}px) scale(1.1)\`;
-  text.style.transform = \`translate(\${x * 0.2}px, \${y * 0.2}px)\`;
+  mouseX = e.clientX;
+  mouseY = e.clientY;
 });
 
 btn.addEventListener('mouseleave', () => {
-  btn.style.transform = 'translate(0px, 0px) scale(1)';
-  text.style.transform = 'translate(0px, 0px)';
-});`
+  isHovered = false;
+});
+
+function animate() {
+  if (isHovered && bounds) {
+    const x = mouseX - bounds.left - bounds.width / 2;
+    const y = mouseY - bounds.top - bounds.height / 2;
+    btnX = lerp(btnX, x * 0.4, 0.1);
+    btnY = lerp(btnY, y * 0.4, 0.1);
+    textX = lerp(textX, x * 0.2, 0.1);
+    textY = lerp(textY, y * 0.2, 0.1);
+  } else {
+    btnX = lerp(btnX, 0, 0.1);
+    btnY = lerp(btnY, 0, 0.1);
+    textX = lerp(textX, 0, 0.1);
+    textY = lerp(textY, 0, 0.1);
+  }
+  
+  btn.style.transform = \`translate(\${btnX}px, \${btnY}px)\`;
+  text.style.transform = \`translate(\${textX}px, \${textY}px)\`;
+  
+  requestAnimationFrame(animate);
+}
+
+animate();`
     }
   },
   {
@@ -296,7 +324,186 @@ btn.addEventListener('mouseleave', (e) => {
       js: ''
     }
   },
-  { id: 'confetti-btn', name: 'Confetti Fire', description: 'Burst of particles on click.', category: 'Buttons', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
-  { id: 'liquid-button', name: 'Liquid Button', description: 'Gooey blob hover effect.', category: 'Buttons', code: { html: '<!-- implementation soon -->', css: '', js: '' } },
+  {
+    id: 'multi-state-btn',
+    name: 'Multi-State Submit',
+    description: 'Button with loading and success states built-in.',
+    category: 'Buttons',
+    code: {
+      html: `<button class="multi-state-btn" id="multi-state-btn">
+  <span class="btn-text default-text">Submit</span>
+  <span class="btn-text loading-text"><div class="spinner"></div></span>
+  <span class="btn-text success-text">✓ Success</span>
+</button>`,
+      css: `.multi-state-btn {
+  position: relative;
+  padding: 16px 32px;
+  border-radius: 8px;
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  overflow: hidden;
+  transition: background 0.3s ease;
+  min-width: 140px;
+  height: 52px;
+}
+.multi-state-btn.is-loading { background: #4338ca; pointer-events: none; }
+.multi-state-btn.is-success { background: #10b981; pointer-events: none; }
+
+.btn-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.default-text { opacity: 1; transform: translate(-50%, -50%) translateY(0); }
+.multi-state-btn.is-loading .default-text, 
+.multi-state-btn.is-success .default-text { opacity: 0; transform: translate(-50%, -50%) translateY(20px); }
+
+.loading-text { opacity: 0; transform: translate(-50%, -50%) translateY(-20px); }
+.multi-state-btn.is-loading .loading-text { opacity: 1; transform: translate(-50%, -50%) translateY(0); }
+.multi-state-btn.is-success .loading-text { opacity: 0; transform: translate(-50%, -50%) translateY(20px); }
+
+.success-text { opacity: 0; transform: translate(-50%, -50%) translateY(-20px); }
+.multi-state-btn.is-success .success-text { opacity: 1; transform: translate(-50%, -50%) translateY(0); }
+
+.spinner {
+  width: 20px; height: 20px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 0.8s linear infinite;
+}`,
+      js: `const multiBtn = document.getElementById('multi-state-btn');
+multiBtn.addEventListener('click', () => {
+  if (multiBtn.classList.contains('is-loading') || multiBtn.classList.contains('is-success')) return;
+  
+  // Loading state
+  multiBtn.classList.add('is-loading');
+  
+  // Simulate network request
+  setTimeout(() => {
+    multiBtn.classList.remove('is-loading');
+    multiBtn.classList.add('is-success');
+    
+    // Reset after 2s
+    setTimeout(() => {
+      multiBtn.classList.remove('is-success');
+    }, 2000);
+  }, 1500);
+});`
+    }
+  },
+  {
+    id: 'swipe-confirm-btn',
+    name: 'Swipe to Confirm',
+    description: 'Slide button thumb to right to activate.',
+    category: 'Buttons',
+    code: {
+      html: `<div class="swipe-container" id="swipe-container">
+  <div class="swipe-track">
+    <span class="swipe-text">Slide to confirm</span>
+    <div class="swipe-thumb" id="swipe-thumb">→</div>
+  </div>
+</div>`,
+      css: `.swipe-container {
+  width: 250px;
+  height: 56px;
+  background: #18181b;
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #27272a;
+}
+.swipe-track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.swipe-text {
+  color: #a1a1aa;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1;
+  transition: opacity 0.3s;
+}
+.swipe-thumb {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 48px;
+  height: 48px;
+  background: #fff;
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: grab;
+  z-index: 2;
+  transition: background 0.3s;
+}
+.swipe-thumb:active { cursor: grabbing; }
+.swipe-container.unlocked { background: #10b981; border-color: #10b981; }
+.swipe-container.unlocked .swipe-text { opacity: 0; }
+.swipe-container.unlocked .swipe-thumb { background: #fff; cursor: default; }`,
+      js: `const container = document.getElementById('swipe-container');
+const thumb = document.getElementById('swipe-thumb');
+let isDragging = false;
+let startX = 0;
+let currentX = 0;
+const maxSlide = container.clientWidth - thumb.clientWidth - 8;
+let unlocked = false;
+
+thumb.addEventListener('mousedown', (e) => {
+  if (unlocked) return;
+  isDragging = true;
+  startX = e.clientX - currentX;
+  thumb.style.transition = 'none';
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  currentX = Math.max(0, Math.min(e.clientX - startX, maxSlide));
+  thumb.style.transform = \`translateX(\${currentX}px)\`;
+  
+  if (currentX > maxSlide * 0.95) { // Unlocked
+    unlocked = true;
+    isDragging = false;
+    currentX = maxSlide;
+    thumb.style.transform = \`translateX(\${currentX}px)\`;
+    thumb.innerHTML = '✓';
+    container.classList.add('unlocked');
+    // Option to reset
+    setTimeout(() => {
+      unlocked = false;
+      currentX = 0;
+      thumb.style.transition = 'transform 0.3s';
+      thumb.style.transform = \`translateX(\${currentX}px)\`;
+      thumb.innerHTML = '→';
+      container.classList.remove('unlocked');
+    }, 2000);
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  if (!isDragging) return;
+  isDragging = false;
+  thumb.style.transition = 'transform 0.3s';
+  if (!unlocked) {
+    currentX = 0;
+    thumb.style.transform = \`translateX(\${currentX}px)\`;
+  }
+});`
+    }
+  },
   { id: 'glitch-button', name: 'Glitch Effect', description: 'Cyberpunk style text glitch.', category: 'Buttons', code: { html: '<!-- implementation soon -->', css: '', js: '' } }
 ];

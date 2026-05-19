@@ -1,4 +1,4 @@
-import { Cpu, Move, Zap, Palette, Fingerprint, Maximize, MousePointer2, Scan, Smartphone, Layers, Loader2, Type, Box } from 'lucide-react';
+import { Cpu, Move, Zap, Palette, Fingerprint, Maximize, MousePointer2, Scan, Smartphone, Layers, Loader2, Type, Box, Navigation, TextCursorInput, PieChart } from 'lucide-react';
 import Link from 'next/link';
 import { getComponentsByCategory, Category } from '@/registry';
 import { ComponentViewer } from '@/components/playground/component-viewer';
@@ -10,6 +10,9 @@ const ICONS: Record<Category, React.ReactNode> = {
   Backgrounds: <Layers className="w-5 h-5 text-blue-400" />,
   Loaders: <Loader2 className="w-5 h-5 text-amber-400" />,
   Typography: <Type className="w-5 h-5 text-cyan-400" />,
+  Navigations: <Navigation className="w-5 h-5 text-purple-400" />,
+  Inputs: <TextCursorInput className="w-5 h-5 text-yellow-400" />,
+  'Data Visualization': <PieChart className="w-5 h-5 text-orange-400" />,
 };
 
 export default function ComponentsPage() {
